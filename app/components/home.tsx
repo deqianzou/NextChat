@@ -21,10 +21,13 @@ import {
   Route,
   Routes,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import { SideBar } from "./sidebar";
 import { useAppConfig } from "../store/config";
-import { AuthPage } from "./auth";
+import { LoginPage } from "./login";
+import { SignupPage } from "./signup";
+import { IconButton } from "./button";
 import { getClientConfig } from "../config/client";
 import { type ClientApi, getClientApi } from "../client/api";
 import { useAccessStore } from "../store";
@@ -162,9 +165,11 @@ function Screen() {
   const location = useLocation();
   const isArtifact = location.pathname.includes(Path.Artifacts);
   const isHome = location.pathname === Path.Home;
-  const isAuth = location.pathname === Path.Auth;
+  const isLogin = location.pathname === Path.Login;
+  const isSignup = location.pathname === Path.Signup;
   const isSd = location.pathname === Path.Sd;
   const isSdNew = location.pathname === Path.SdNew;
+  const navigate = useNavigate();
 
   const isMobileScreen = useMobileScreen();
   const shouldTightBorder =
@@ -182,7 +187,8 @@ function Screen() {
     );
   }
   const renderContent = () => {
-    if (isAuth) return <AuthPage />;
+    if (isLogin) return <LoginPage />;
+    if (isSignup) return <SignupPage />;
     if (isSd) return <Sd />;
     if (isSdNew) return <Sd />;
     return (
@@ -215,6 +221,18 @@ function Screen() {
         [styles["rtl-screen"]]: getLang() === "ar",
       })}
     >
+      <div className={styles.buttonContainer} style={{ marginLeft: "auto" }}>
+        <IconButton
+          text="Login"
+          onClick={() => navigate(Path.Login)}
+          type={"primary"}
+        ></IconButton>
+        <IconButton
+          text="Signup"
+          onClick={() => navigate(Path.Signup)}
+          type={"primary"}
+        ></IconButton>
+      </div>
       {renderContent()}
     </div>
   );

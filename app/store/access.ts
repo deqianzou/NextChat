@@ -4,6 +4,7 @@ import {
   StoreKey,
   ApiPath,
   OPENAI_BASE_URL,
+  PROPERTY_GPT_BASE_URL,
   ANTHROPIC_BASE_URL,
   GEMINI_BASE_URL,
   BAIDU_BASE_URL,
@@ -30,6 +31,10 @@ let fetchState = 0; // 0 not fetch, 1 fetching, 2 done
 const isApp = getClientConfig()?.buildMode === "export";
 
 const DEFAULT_OPENAI_URL = isApp ? OPENAI_BASE_URL : ApiPath.OpenAI;
+
+const DEFAULT_PROPERTY_GPT_BASE_URL = isApp
+  ? PROPERTY_GPT_BASE_URL
+  : ApiPath.PropertyGPT;
 
 const DEFAULT_GOOGLE_URL = isApp ? GEMINI_BASE_URL : ApiPath.Google;
 

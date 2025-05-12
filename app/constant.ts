@@ -11,6 +11,7 @@ export const RUNTIME_CONFIG_DOM = "danger-runtime-config";
 
 export const STABILITY_BASE_URL = "https://api.stability.ai";
 
+export const PROPERTY_GPT_BASE_URL = "http://127.0.0.1:5000";
 export const OPENAI_BASE_URL = "https://api.openai.com";
 export const ANTHROPIC_BASE_URL = "https://api.anthropic.com";
 
@@ -46,7 +47,8 @@ export enum Path {
   NewChat = "/new-chat",
   Masks = "/masks",
   Plugins = "/plugins",
-  Auth = "/auth",
+  Login = "/login",
+  Signup = "/signup",
   Sd = "/sd",
   SdNew = "/sd-new",
   Artifacts = "/artifacts",
@@ -72,6 +74,7 @@ export enum ApiPath {
   ChatGLM = "/api/chatglm",
   DeepSeek = "/api/deepseek",
   SiliconFlow = "/api/siliconflow",
+  PropertyGPT = "/api/propertyGpt",
 }
 
 export enum SlotID {
@@ -130,6 +133,7 @@ export enum ServiceProvider {
   ChatGLM = "ChatGLM",
   DeepSeek = "DeepSeek",
   SiliconFlow = "SiliconFlow",
+  PropertyGPT = "PropertyGPT",
 }
 
 // Google API safety settings, see https://ai.google.dev/gemini-api/docs/safety-settings
@@ -156,6 +160,7 @@ export enum ModelProvider {
   ChatGLM = "ChatGLM",
   DeepSeek = "DeepSeek",
   SiliconFlow = "SiliconFlow",
+  PropertyGPT = "PropertyGPT",
 }
 
 export const Stability = {
@@ -166,6 +171,16 @@ export const Stability = {
 export const Anthropic = {
   ChatPath: "v1/messages",
   ChatPath1: "v1/complete",
+  ExampleEndpoint: "https://api.anthropic.com",
+  Vision: "2023-06-01",
+};
+
+export const PropertyGpt = {
+  BaseUrl: "https://127.0.0.1:5000",
+  ChatPath: "/chat/completions",
+  ChatPath1: "/chat/completions",
+  LoginPath: "/auth/v1/login",
+  SignupPath: "/auth/v1/signup",
   ExampleEndpoint: "https://api.anthropic.com",
   Vision: "2023-06-01",
 };
@@ -483,6 +498,8 @@ export const VISION_MODEL_REGEXES = [
 ];
 
 export const EXCLUDE_VISION_MODEL_REGEXES = [/claude-3-5-haiku-20241022/];
+
+const propertyGPTModels = ["PropertyGPT"];
 
 const openaiModels = [
   // As of July 2024, gpt-4o-mini should be used in place of gpt-3.5-turbo,
@@ -825,6 +842,17 @@ export const DEFAULT_MODELS = [
       providerName: "SiliconFlow",
       providerType: "siliconflow",
       sorted: 14,
+    },
+  })),
+  ...propertyGPTModels.map((name) => ({
+    name,
+    available: true,
+    sorted: seq++,
+    provider: {
+      id: "PropertyGPT",
+      providerName: "PropertyGPT",
+      providerType: "PropertyGPT",
+      sorted: 15,
     },
   })),
 ] as const;

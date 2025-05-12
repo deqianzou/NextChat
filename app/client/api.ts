@@ -11,7 +11,7 @@ import {
   useAccessStore,
   useChatStore,
 } from "../store";
-import { ChatGPTApi, DalleRequestPayload } from "./platforms/openai";
+import { DalleRequestPayload } from "./platforms/openai";
 import { GeminiProApi } from "./platforms/google";
 import { ClaudeApi } from "./platforms/anthropic";
 import { ErnieApi } from "./platforms/baidu";
@@ -24,6 +24,7 @@ import { DeepSeekApi } from "./platforms/deepseek";
 import { XAIApi } from "./platforms/xai";
 import { ChatGLMApi } from "./platforms/glm";
 import { SiliconflowApi } from "./platforms/siliconflow";
+import { PropertyGptApi } from "./platforms/propertyGpt";
 
 export const ROLES = ["system", "user", "assistant"] as const;
 export type MessageRole = (typeof ROLES)[number];
@@ -173,8 +174,11 @@ export class ClientApi {
       case ModelProvider.SiliconFlow:
         this.llm = new SiliconflowApi();
         break;
+      case ModelProvider.PropertyGPT:
+        this.llm = new PropertyGptApi();
+        break;
       default:
-        this.llm = new ChatGPTApi();
+        this.llm = new PropertyGptApi();
     }
   }
 
