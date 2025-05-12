@@ -181,8 +181,9 @@ export const PropertyGpt = {
   ChatPath1: "/chat/completions",
   LoginPath: "/auth/v1/login",
   SignupPath: "/auth/v1/signup",
+  HistorySessionPath: "/v1/sessions",
   ExampleEndpoint: "https://api.anthropic.com",
-  Vision: "2023-06-01",
+  Vision: "2025-04-30",
 };
 
 export const OpenaiPath = {
