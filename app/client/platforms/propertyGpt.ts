@@ -29,19 +29,37 @@ export class PropertyGptApi implements LLMApi {
         body: JSON.stringify(payload),
         signal: controller.signal,
         headers: getHeaders(),
+        credentials: "include",
       });
 
       const resJson = await res.json();
+
       if (!res.ok) {
         options.onError?.(
           new Error(`HTTP ${res.status}: ${resJson?.error?.message}`),
         );
         return;
       }
+
       const message = resJson.choices?.[0]?.message?.content || "";
       options.onFinish(message, res);
     } catch (e) {
       options.onError?.(e as Error);
+    }
+  }
+
+  async getHistorySessions() {
+    const path = `${PropertyGpt.BaseUrl}${PropertyGpt.HistorySessionPath}`;
+    try {
+      const response = await fetch(path, {
+        headers: getHeaders(),
+        credentials: "include",
+      });
+      if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+      return await response.json();
+    } catch (error) {
+      console.error("Failed to fetch history sessions:", error);
+      throw error;
     }
   }
 
